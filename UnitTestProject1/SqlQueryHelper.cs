@@ -10,6 +10,7 @@ namespace UnitTestProject1
     {
         private static string _query = "default";
 
+
         #region DashboardService Query
         internal static string GetTotalNotSellingProductsByDateQuery(DateTime fromDate, DateTime toDate)
         {
@@ -63,6 +64,39 @@ namespace UnitTestProject1
                 ", id);
             return _query;
         }
+        #endregion
+
+        #region OrderService Query
+        internal static string GetDateToDateAllOrderQuery(string fromDate, string toDate, int? channelId, string orderStatus = "")
+        {
+            string byChannel = channelId > 0 ? string.Format("AND ChannelId = {0}", channelId) : string.Empty;
+
+            string byOrderStatus = orderStatus?.Length > 0 ? $"AND OrderStatus = '{orderStatus}'" : string.Empty;
+
+
+            _query = string.Format(@"
+            SELECT odl.Id,
+                   CONVERT(DATE, odl.OrderedAt) AS Date,
+                   chn.ChannelName,
+                   COUNT(odt.ProductId) AS ProductUnit,
+                   odl.TotalPrice,
+                   odl.ShipmentProvider,
+                   odl.OrderStatus
+            FROM ORDERLIST AS odl
+            JOIN Channel AS chn ON odl.ChannelId = chn.Id
+            JOIN OrderDetail AS odt ON odt.OrderId = odl.Id
+            WHERE CAST(odl.OrderedAt AS Date) BETWEEN '{0}' AND '{1}'
+                  {2} {3}
+            GROUP BY odl.Id,
+                     CONVERT(DATE, odl.OrderedAt),
+                     ChannelName,
+                     TotalPrice,
+                     ShipmentProvider,
+                     OrderStatus
+                        ", fromDate, toDate, byChannel, byOrderStatus);
+            return _query;
+        }
+
         #endregion
     }
 }

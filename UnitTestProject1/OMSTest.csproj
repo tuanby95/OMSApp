@@ -58,9 +58,12 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="DashboardService.cs" />
     <Compile Include="InventoryService.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="ProductService.cs" />
+    <Compile Include="Size.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SqlQueryHelper.cs" />
     <Compile Include="UnitTest1.cs" />
