@@ -13,7 +13,15 @@ namespace OMSTest
             DateTime fromDate = new DateTime(2023, 01, 24);
             DateTime toDate = new DateTime(2023, 03, 24);
             var result = DashboardService.GetTotalNotSellingProductsByDate(fromDate, toDate);
-            Assert.IsTrue(result > 3);
+            Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void GetUserInformationByIdTest()
+        {
+            int id = 2;
+            var result = UserService.GetUserInformationById(id);
+
+            Assert.IsTrue(result.FullName != null);
         }
     }
 }

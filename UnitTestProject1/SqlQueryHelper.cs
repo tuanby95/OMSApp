@@ -31,6 +31,8 @@ namespace UnitTestProject1
                                       )");
             return _query;
         }
+
+
         #endregion
 
         #region ProductService Query
@@ -49,6 +51,18 @@ namespace UnitTestProject1
         #endregion
 
         #region PaymentService Query
+        #endregion
+
+        #region UserService Query
+        internal static string GetUserInformationByIdQuery(int id)
+        {
+            _query = string.Format(@"
+                SELECT *
+                FROM UserList
+                WHERE Id = {0};
+                ", id);
+            return _query;
+        }
         #endregion
     }
 }

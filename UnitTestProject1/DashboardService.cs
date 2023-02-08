@@ -10,7 +10,7 @@ namespace UnitTestProject1
 {
     public static class DashboardService
     {
-        private static readonly string _connectionString = "Data Source=.;Initial Catalog=OMSDb;Integrated Security=True";
+       
 
         internal static long GetTotalNotSellingProductsByDate(DateTime fromDate, DateTime toDate)
         {
@@ -20,7 +20,7 @@ namespace UnitTestProject1
 
         private static long GetTotalByConditionInternal(string sql)
         {
-            var respond = SqlHelper.ExecuteScalar(_connectionString, sql, CommandType.Text);
+            var respond = SqlHelper.ExecuteScalar(SqlHelper._connectionString, sql, CommandType.Text);
             long result;
             long.TryParse(respond + " ", out result);
             return result;
