@@ -56,12 +56,18 @@
   <ItemGroup>
     <Compile Include="ChannelService.cs" />
     <Compile Include="CustomerService.cs" />
+    <Compile Include="DashboardChartItem.cs" />
+    <Compile Include="DashboardItem.cs" />
+    <Compile Include="DashboardSaleByLocationItem.cs" />
     <Compile Include="DashboardService.cs" />
+    <Compile Include="DashboardTotalOrderItem.cs" />
     <Compile Include="InventoryService.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderDetail.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="PaymentService.cs" />
     <Compile Include="Product.cs" />
+    <Compile Include="ProductChannel.cs" />
     <Compile Include="ProductService.cs" />
     <Compile Include="Size.cs" />
     <Compile Include="SqlHelper.cs" />

@@ -18,7 +18,7 @@ namespace UnitTestProject1
         internal static User GetUserInformationById(int id)
         {
             
-            var reader = SqlHelper.ExecuteReader(SqlHelper._connectionString, SqlQueryHelper.GetUserInformationByIdQuery(id), CommandType.Text);
+            var reader = SqlHelper.ExecuteReader(SqlQueryHelper.GetUserInformationByIdQuery(id), CommandType.Text);
             var result = new User();
             while (reader.Read())
             {
@@ -38,6 +38,16 @@ namespace UnitTestProject1
                 };
             }
 
+            return result;
+        }
+
+        internal static int UpdatePassword(User user, string oldPassword, string newPassword)
+        {
+            if (oldPassword == "" || oldPassword.Length > 16) { return 0; }
+
+            var sql = SqlQueryHelper.UpdatePasswordQuery(user, oldPassword, newPassword);
+
+            var result = SqlHelper.ExecuteNonQuery(sql, CommandType.Text);
             return result;
         }
     }
