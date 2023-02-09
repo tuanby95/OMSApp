@@ -10,8 +10,8 @@ namespace OMSTest
         [TestMethod]
         public void GetNotSellingProductByDateTest()
         {
-            DateTime fromDate = new DateTime(2023, 01, 24);
-            DateTime toDate = new DateTime(2023, 03, 24);
+            DateTime fromDate = new DateTime(2023, 01, 25);
+            DateTime toDate = new DateTime(2023, 01, 26);
             var result = DashboardService.GetTotalNotSellingProductsByDate(fromDate, toDate);
             Assert.IsTrue(result > 3);
         }

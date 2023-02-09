@@ -11,7 +11,12 @@ namespace UnitTestProject1
     public static class DashboardService
     {
         private static readonly string _connectionString = "Data Source=.;Initial Catalog=OMSDb;Integrated Security=True";
-
+        /// <summary>
+        /// Get total products that not selling from a range of time
+        /// </summary>
+        /// <param name="fromDate">The date begining checking</param>
+        /// <param name="toDate">The last date checking</param>
+        /// <returns>Return total products</returns>
         internal static long GetTotalNotSellingProductsByDate(DateTime fromDate, DateTime toDate)
         {
             var sql = SqlQueryHelper.GetTotalNotSellingProductsByDateQuery(fromDate, toDate);

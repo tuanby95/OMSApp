@@ -11,8 +11,11 @@ namespace UnitTestProject1
         private static string _query = "default";
 
         #region DashboardService Query
+
         internal static string GetTotalNotSellingProductsByDateQuery(DateTime fromDate, DateTime toDate)
         {
+            var str1 = fromDate.ToString("yyyy-MM-dd");
+            var str2 = toDate.ToString("yyyy-MM-dd");
             _query = String.Format(@"
                                     SELECT 
                                       COUNT(pdt.Id) AS Total 
@@ -26,9 +29,9 @@ namespace UnitTestProject1
                                           OrderList ord 
                                           JOIN OrderDetail ordl ON ord.Id = ordl.OrderId 
                                         WHERE 
-                                          ord.OrderedAt BETWEEN '2023-01-24' 
-                                          AND DATEADD(SECOND, -1, '2023-03-30')
-                                      )");
+                                          ord.OrderedAt BETWEEN '{0}' 
+                                          AND DATEADD(SECOND, -1, '{1}')
+                                      )", str1, str2);
             return _query;
         }
         #endregion
