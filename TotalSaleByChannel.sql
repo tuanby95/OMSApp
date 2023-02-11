@@ -10,7 +10,7 @@ SET @TotalSale =
    WHERE MONTH(odr.OrderedAt) = MONTH(GETDATE())
    AND YEAR(odr.OrderedAt) = YEAR(GETDATE())
    )
-SELECT chal.Id
+SELECT TOP 4 chal.Id
 	   ,chal.ChannelName
 	   ,SUM(CASE WHEN odr.OrderStatus NOT IN('FAILED','CANCELLED','RETURN') THEN odr.TotalPrice END) AS Total
 	   ,ROUND(SUM(CASE WHEN odr.OrderStatus NOT IN('FAILED','CANCELLED','RETURN') THEN odr.TotalPrice END)/@TotalSale * 100,2) AS Percentages 
