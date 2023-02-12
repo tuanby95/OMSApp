@@ -4,3 +4,6 @@ FROM   OrderList odl
 WHERE  odl.OrderStatus = 'COMPLETED' AND
 	   odl.OrderedAt BETWEEN '2022-01-01 ' AND DATEADD(SECOND,-1,DATEADD(DAY, -1, '2023-12-01 ')) 
 GROUP BY MONTH(odl.OrderedAt) 
+
+// Dashboard Total Order
+
