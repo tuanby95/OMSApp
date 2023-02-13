@@ -1,36 +1,39 @@
-USE OMSDb1
-GO
 --- In Customer DashBoard (Top Products Sale by Channel) 
 ; 
-WITH TMP AS
+WITH cte AS
 (	
 	SELECT chal.Id
 			,chal.ChannelName
-			,odrl.ProductId
+			,pv.Id AS ProductVariantId
 			,pd.ProductName
+			,pv.ProductVariantValue
 			,SUM(odr.TotalPrice) AS TotalSpend
 			,COUNT(odr.Id) AS NumberOfOrders
 			,ROW_NUMBER() OVER(PARTITION BY chal.Id 
 								ORDER BY SUM(odr.TotalPrice) DESC) AS rank
-	FROM OrderList odr
+	FROM OrderInfo odr
 	JOIN Channel chal ON odr.ChannelId = chal.Id
 	JOIN OrderDetail odrl ON odr.Id = odrl.OrderId
-	JOIN Product pd ON odrl.ProductId = pd.Id
+	JOIN ProductVariant pv ON odrl.ProductVariantId = pv.Id 
+	JOIN Product pd			ON pv.ProductId = pd.Id
 	WHERE CONVERT(date,odr.OrderedAt) BETWEEN '2023-01-24'
 		AND DATEADD(SECOND, 1, '2023-03-30')
 	AND odr.OrderStatus NOT IN ('FAILED','CANCELLED','RETURN')
 	GROUP BY chal.Id
 			,chal.ChannelName
-			,odrl.ProductId
+			,pv.Id
+			,pd.ProductName
+			,pv.ProductVariantValue
 			,pd.ProductName
 )
 SELECT TOP 4
 		ChannelName	
-		,ProductId
+		,ProductVariantId
 		,ProductName
+		,ProductVariantValue
 		,TotalSpend
 		,NumberOfOrders
-FROM TMP
+FROM cte
 WHERE rank = 1
 ORDER BY TotalSpend DESC
 		,NumberOfOrders DESC
