@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Threading.Tasks;
 using UnitTestProject1;
+//using GraphQL;
+//using GraphQL.Types;
+//using GraphQL.SystemTextJson; // First add PackageReference to GraphQL.SystemTextJson
 
 namespace OMSTest
 {
@@ -31,15 +35,16 @@ namespace OMSTest
             String toDate = "2023-12-31";
             var result = DashboardService.GetSaleList(fromDate, toDate);
 
-            Assert.IsNotNull(result.Count >= 0);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public void GetTotalSalesTest()
         {
-            String fromDate = "2023-01-01";
-            String toDate = "2023-12-31";
-            var result = DashboardService.GetTotalSales(fromDate, toDate);
+            String fromDate = "GETDATE()";
+            String toDate = "GETDATE()";
+            int backNumber = -7;
+            var result = DashboardService.GetTotalSales(fromDate, toDate, backNumber);
 
             Assert.IsTrue(result >= 0);
         }
@@ -127,7 +132,21 @@ namespace OMSTest
         [TestMethod]
         public void InsertNewUserTest()
         {
-            User user = new User();
+            UserInfo user = new UserInfo()
+            {
+                FullName = "Phạm Lê Nhật Tiến Test",
+                PhoneNumber = "0932350000",
+                DOB = new DateTime(1997, 03, 07),
+                Gender = "Male",
+                Email = "tienplnps15456@fpt.edu.vn",
+                UserRole = "MANAGER",
+                FullAddress = "???",
+                UserStatus = "ACTIVE",
+                Facebook = String.Empty,
+                Instagram = String.Empty,
+                UserName = "tienbotay1997",
+                UserPassword = "123456789"
+            };
             var result = UserService.InsertNewUser(user);
 
             Assert.IsNotNull(result);

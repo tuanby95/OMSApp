@@ -1,7 +1,9 @@
-﻿using OMSTest;
+﻿using Dapper;
+using OMSTest;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,60 +12,61 @@ namespace UnitTestProject1
 {
     public static class DashboardService
     {
-        public static long GetTotalSales(String fromDate, String toDate)
+        public static long GetTotalSales(String fromDate, String toDate, int backNumber)
         {
-            var sql = SqlQueryHelper.GetTotalSalesQuery(fromDate, toDate);
-
-            return GetTotalByConditionInternal(sql);
+            var sql = SqlQueryHelper.GetTotalSalesQuery(fromDate, toDate, backNumber);
+            long result = SqlHelper.DapperExecuteScalar(sql);
+            return result;
         }
 
-        internal static List<DashboardItem> GetSaleList(String fromDate, String toDate)
+        internal static object GetSaleList(String fromDate, String toDate)
         {
 
             var sql = SqlQueryHelper.GetSaleListQuery(fromDate, toDate);
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
-        public static object GetTotalSalesReturn(String fromDate, String toDate)
+        public static long GetTotalSalesReturn(String fromDate, String toDate)
         {
             var sql = SqlQueryHelper.GetTotalSalesReturnQuery(fromDate, toDate);
-            return GetTotalByConditionInternal(sql);
+            long result = SqlHelper.DapperExecuteScalar(sql);
+            return result;
         }
 
         internal static object GetTotalSalesOverview()
         {
             var sql = SqlQueryHelper.GetTotalSalesOverviewQuery();
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetTotalSalesOverviewChart(string fromDate, string toDate)
         {
             var sql = SqlQueryHelper.GetTotalSalesOverviewChartQuery(fromDate, toDate);
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetAvgOrderOverview()
         {
             var sql = SqlQueryHelper.GetAvgOrderOverviewQuery();
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetAvgOrderOverviewChart(String fromDate, String toDate)
         {
             var sql = SqlQueryHelper.GetAvgOrderOverviewChartQuery(fromDate, toDate);
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetTotalReturnOverview()
         {
             var sql = SqlQueryHelper.GetTotalReturnOverviewQuery();
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetTotalReturnOverviewChart(string fromDate, string toDate)
         {
             var sql = SqlQueryHelper.GetTotalReturnOverviewChartQuery(fromDate, toDate);
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
         internal static object GetSaleOnChannelChart()
@@ -76,41 +79,23 @@ namespace UnitTestProject1
         internal static object GetSaleByLocationOverview()
         {
             var sql = SqlQueryHelper.GetSaleByLocationOverviewQuery();
-            return GetDashboardItemByConditionsDate(sql);
+            return GetDashboardItemByConditionsDateWithDapper(sql);
         }
 
 
         internal static long GetTotalNotSellingProductsByDate(DateTime fromDate, DateTime toDate)
         {
             var sql = SqlQueryHelper.GetTotalNotSellingProductsByDateQuery(fromDate, toDate);
-            return GetTotalByConditionInternal(sql);
-        }
-
-        private static long GetTotalByConditionInternal(string sql)
-        {
-            var respond = SqlHelper.ExecuteScalar(SqlHelper._connectionString, sql, CommandType.Text);
-            long result;
-            long.TryParse(respond + " ", out result);
+            long result = SqlHelper.DapperExecuteScalar(sql);
             return result;
         }
-
-        private static List<DashboardItem> GetDashboardItemByConditionsDate(string sql)
+        private static IEnumerable<DashboardItem> GetDashboardItemByConditionsDateWithDapper(string sql)
         {
-            var reader = SqlHelper.ExecuteReader(SqlHelper._connectionString, sql, CommandType.Text);
-
-            var result = new List<DashboardItem>();
-
-            while (reader.Read())
+            using(var conn = new SqlConnection(SqlHelper._connectionString))
             {
-                var item = new DashboardItem
-                {
-                    Value = reader[0].ToString() == String.Empty ? 0 + "" : reader[0] + "",
-                    DisplayText = reader[1] + ""
-                };
-
-                result.Add(item);
+                var result = conn.Query<DashboardItem>(sql);
+                return result;
             }
-            return result;
         }
     }
 }

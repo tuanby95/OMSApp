@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Dapper;
+using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnitTestProject1;
 
 namespace OMSTest
 {
@@ -62,5 +65,25 @@ namespace OMSTest
                 return reader;
             }
         }
+
+        public static long DapperExecuteScalar(String sql)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var count = connection.ExecuteScalar<long>(sql);
+                return count;
+            }
+        }
+
+        public static List<Object> DapperExecuteReader(String sql)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var result = connection.Query(sql);
+                return (List<object>)result;
+            }
+        }
+
+
     }
 }

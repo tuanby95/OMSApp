@@ -23,7 +23,7 @@ namespace UnitTestProject1
                                         SELECT 
                                           DISTINCT ordl.ProductId 
                                         FROM 
-                                          OrderList ord 
+                                          OrderInfo ord 
                                           JOIN OrderDetail ordl ON ord.Id = ordl.OrderId 
                                         WHERE 
                                           ord.OrderedAt BETWEEN '2023-01-24' 
@@ -39,18 +39,20 @@ namespace UnitTestProject1
                 SELECT 
                     Sum(TotalPrice), 
                     OrderedAt
-                FROM OrderList
+                FROM OrderInfo
                 WHERE OrderedAt BETWEEN  '{0}' 
                   AND '{1}'
                 GROUP BY OrderedAt", fromDate, toDate);
         }
-        internal static string GetTotalSalesQuery(string fromDate, string toDate)
+        internal static string GetTotalSalesQuery(string fromDate, string toDate,int backNumber)
         {
-            return _query = string.Format(@"
+            return _query = string.Format($@"
                 SELECT 
-                    Sum(TotalPrice) 
-                FROM OrderList 
-                WHERE OrderedAt BETWEEN '{0}' and '{1}'", fromDate, toDate);
+	                SUM(TotalPrice) AS TotalSale
+                FROM OrderInfo
+                WHERE OrderStatus NOT IN ('RETURN', 'FAILED', 'CANCELLED')
+                  AND OrderedAt >= DATEADD(DAY, (DATEDIFF(DAY, 0, {fromDate}) + {backNumber}), 0)
+                  AND OrderedAt < DATEADD(DAY, (DATEDIFF(DAY, 0, {toDate}) + 1), 0);");
         }
 
         internal static string GetTotalSalesReturnQuery(string fromDate, string toDate)
@@ -58,7 +60,7 @@ namespace UnitTestProject1
             return _query = string.Format(@"
                 SELECT 
                     Sum(TotalPrice) 
-                FROM OrderList 
+                FROM OrderInfo 
                 WHERE OrderStatus = 'Return' 
                   AND (OrderedAt BETWEEN '{0}' 
                   AND '{1}');", fromDate, toDate);
@@ -70,13 +72,13 @@ namespace UnitTestProject1
                 DECLARE @totalPreviousMonth FLOAT
                 SET @totalPreviousMonth =
                   (SELECT SUM(TotalPrice)
-                   FROM OrderList
+                   FROM OrderInfo
                    WHERE MONTH(OrderedAt) = MONTH(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
                      AND YEAR(OrderedAt) = YEAR(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
 	                 AND OrderStatus != 'RETURNED')
                 SELECT SUM(od.TotalPrice) AS TotalThisMonth,
                        ROUND(100*(SUM(od.TotalPrice) - @totalPreviousMonth)/ @totalPreviousMonth, 0) AS ""Percentage""
-                FROM OrderList od
+                FROM OrderInfo od
                 WHERE MONTH(GETDATE()) = MONTH(od.OrderedAt);");
         }
 
@@ -86,7 +88,7 @@ namespace UnitTestProject1
                 SELECT 
 	                SUM(TotalPrice) AS TotalSale,
                     OrderedAt
-                FROM OrderList
+                FROM OrderInfo
                 WHERE OrderedAt >= CAST('{0}' AS DATETIME)
                   AND OrderedAt < DATEADD(DAY, 1, '{1}')
                   AND OrderStatus != 'RETURNED'
@@ -100,14 +102,14 @@ namespace UnitTestProject1
                 SET @totalPreviousMonth =
                   (SELECT 
                         AVG(TotalPrice)
-                   FROM OrderList
+                   FROM OrderInfo
                    WHERE MONTH(OrderedAt) = MONTH(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
                      AND YEAR(OrderedAt) = YEAR(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
 	                 AND OrderStatus != 'RETURNED')
                 SELECT 
                     ROUND(AVG(od.TotalPrice),0) AS AvgOrderThisMonth,
                     ROUND(100*(AVG(od.TotalPrice) - @totalPreviousMonth)/ @totalPreviousMonth, 0) AS Percentage
-                FROM OrderList od
+                FROM OrderInfo od
                 WHERE MONTH(GETDATE()) = MONTH(od.OrderedAt)
                   AND od.OrderStatus != 'RETURNED';");
         }
@@ -118,7 +120,7 @@ namespace UnitTestProject1
                 SELECT 
 	                AVG(TotalPrice) AS AvgOrder,
                     OrderedAt
-                FROM OrderList
+                FROM OrderInfo
                 WHERE OrderedAt >= CAST('{0}' AS DATETIME)
                   AND OrderedAt < DATEADD(DAY, 1, '{1}')
                   AND OrderStatus != 'RETURNED'
@@ -131,13 +133,13 @@ namespace UnitTestProject1
                 DECLARE @totalPreviousMonth FLOAT
                 SET @totalPreviousMonth =
                   (SELECT SUM(TotalPrice)
-                   FROM OrderList
+                   FROM OrderInfo
                    WHERE MONTH(OrderedAt) = MONTH(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
                      AND YEAR(OrderedAt) = YEAR(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
 	                 AND OrderStatus != 'RETURNED')
                 SELECT SUM(od.TotalPrice) AS TotalThisMonth,
                        ROUND(100*(SUM(od.TotalPrice) - @totalPreviousMonth)/ @totalPreviousMonth, 0) AS 'Percentage'
-                FROM OrderList od
+                FROM OrderInfo od
                 WHERE MONTH(GETDATE()) = MONTH(od.OrderedAt)
                   AND od.OrderStatus = 'RETURNED';");
         }
@@ -148,7 +150,7 @@ namespace UnitTestProject1
                 SELECT 
 	                SUM(TotalPrice) AS TotalReturn,
                     OrderedAt
-                FROM OrderList
+                FROM OrderInfo
                 WHERE OrderedAt >= CAST('{0}' AS DATETIME)
                   AND OrderedAt < DATEADD(DAY, 1, '{1}')
                   AND OrderStatus = 'RETURNED'
@@ -179,7 +181,7 @@ namespace UnitTestProject1
                        chn.ChannelName,
                        SUM(odr.totalprice) totals
                 FROM tmpchannelmonth chn
-                LEFT JOIN OrderList odr ON odr.Channelid = chn.id
+                LEFT JOIN OrderInfo odr ON odr.Channelid = chn.id
                 AND chn.Monthvalue = MONTH(odr.OrderedAt)
                 GROUP BY chn.Monthvalue,
                          chn.ChannelName;");
@@ -188,24 +190,30 @@ namespace UnitTestProject1
         internal static string GetSaleByLocationOverviewQuery()
         {
             return _query = string.Format(@"
-                DECLARE @totalPreviousMonth FLOAT
-                SET @totalPreviousMonth =
-                  (SELECT AVG(TotalPrice)
-                   FROM OrderList
-                   WHERE MONTH(OrderedAt) = MONTH(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
-                     AND YEAR(OrderedAt) = YEAR(DATEADD(MONTH, -1, CURRENT_TIMESTAMP))
-	                 AND Region = 'Singapore'
-	                 AND OrderStatus != 'RETURNED')
-                SELECT 
-	                DATENAME(MONTH, GETDATE()) AS ThisMonth,
-	                DATENAME(MONTH, DATEADD(MONTH, -1, CURRENT_TIMESTAMP)) AS PreviousMonth,
-	                AVG(TotalPrice) AS AvgOrderThisMonth,
-                    ROUND(100*(AVG(TotalPrice) - @totalPreviousMonth)/ @totalPreviousMonth, 0) AS 'Percentage'
-                FROM OrderList
-                WHERE MONTH(GETDATE()) = MONTH(OrderedAt)
-                  AND OrderStatus != 'RETURNED'
-                  AND Region = 'Singapore'
-                GROUP BY Region;");
+                DECLARE @firstDayThisMonth AS DATETIME = DATEADD(MONTH, (DATEDIFF(MONTH, 0, GETDATE()) - 0), 0), 
+		                @firstDayLastMonth AS DATETIME = DATEADD(MONTH, (DATEDIFF(MONTH, 0, GETDATE()) - 1), 0)
+                SELECT cteTotal.TotalThisMonth,
+                       ROUND(100*(cteTotal.TotalThisMonth - cteTotal.TotalPreviousMonth)/ cteTotal.TotalPreviousMonth, 0) AS 'Percentage',
+	                   ThisMonthName,
+	                   LastMonthName
+                FROM
+                  (SELECT SUM(CASE
+                                  WHEN OrderedAt >= @firstDayThisMonth
+                                       AND OrderedAt < GETDATE() THEN TotalPrice
+                                  ELSE 0
+                              END) AS TotalThisMonth,
+                          SUM(CASE
+                                  WHEN OrderedAt >= @firstDayLastMonth
+                                       AND OrderedAt < @firstDayThisMonth THEN TotalPrice
+                                  ELSE 0
+                              END) AS TotalPreviousMonth,
+		                  DATENAME(MONTH, @firstDayThisMonth) AS ThisMonthName, 
+		                  DATENAME(MONTH, @firstDayLastMonth) AS LastMonthName
+                   FROM OrderInfo
+                   WHERE OrderStatus NOT IN ('RETURNED',
+                                             'FAILED',
+                                             'CANCELLED')
+	                 AND Country LIKE '%Singapore%') AS cteTotal;");
         }
 
         #endregion
@@ -233,7 +241,7 @@ namespace UnitTestProject1
         {
             _query = string.Format(@"
                 SELECT *
-                FROM UserList
+                FROM UserInfo
                 WHERE Id = {0};
                 ", id);
             return _query;

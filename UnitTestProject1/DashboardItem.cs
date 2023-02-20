@@ -2,7 +2,7 @@
 {
     internal class DashboardItem
     {
-        public string DisplayText { get; set; }
-        public string Value { get; set; }
+        public long TotalSale { get; set; }
+        public string OrderedAt { get; set; }
     }
 }
