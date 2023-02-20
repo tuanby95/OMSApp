@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 namespace OMSTest
 {
     public static class SqlHelper
-    {// Set the connection, command, and then execute the command with non query.  
-        public static Int32 ExecuteNonQuery(String connectionString, String commandText,
-            CommandType commandType)
+    {
+        public static readonly string _connectionString = "Data Source=.;Initial Catalog=OMSDb;Integrated Security=True";
+        // Set the connection, command, and then execute the command with non query.  
+        public static Int32 ExecuteNonQuery(String commandText, CommandType commandType)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(commandText, conn))
                 {
@@ -28,10 +29,9 @@ namespace OMSTest
         }
 
         // Set the connection, command, and then execute the command and only return one value.  
-        public static Object ExecuteScalar(String connectionString, String commandText,
-            CommandType commandType)
+        public static Object ExecuteScalar(String commandText, CommandType commandType)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(_connectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(commandText, conn))
                 {
@@ -44,10 +44,9 @@ namespace OMSTest
         }
 
         // Set the connection, command, and then execute the command with query and return the reader.  
-        public static SqlDataReader ExecuteReader(String connectionString, String commandText,
-            CommandType commandType)
+        public static SqlDataReader ExecuteReader(String commandText, CommandType commandType)
         {
-            SqlConnection conn = new SqlConnection(connectionString);
+            SqlConnection conn = new SqlConnection(_connectionString);
 
             using (SqlCommand cmd = new SqlCommand(commandText, conn))
             {

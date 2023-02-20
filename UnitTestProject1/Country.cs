@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace UnitTestProject1
 {
-    public class DashboardItem
+    public class Country
     {
-        public string DisplayText { get; set; }
-        public long Value { get; set; }
+        public int Id { get; set; }
+        public string CountryName { get; set; }
+        public string ShortCode { get; set; }
     }
 }
