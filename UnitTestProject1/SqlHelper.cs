@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -58,6 +59,14 @@ namespace OMSTest
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 return reader;
+            }
+        }
+
+        internal static IEnumerable<T> Query<T>(string sql)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return db.Query<T>(sql);
             }
         }
     }

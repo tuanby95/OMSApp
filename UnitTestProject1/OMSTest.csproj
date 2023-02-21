@@ -45,7 +45,85 @@
     <Reference Include="Dapper.Contrib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.Contrib.2.0.78\lib\net461\Dapper.Contrib.dll</HintPath>
     </Reference>
+    <Reference Include="GreenDonut, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GreenDonut.13.0.2\lib\netstandard2.0\GreenDonut.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Abstractions, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Abstractions.13.0.2\lib\netstandard2.0\HotChocolate.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Authorization, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Authorization.13.0.2\lib\netstandard2.0\HotChocolate.Authorization.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Execution, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Execution.13.0.2\lib\netstandard2.0\HotChocolate.Execution.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Execution.Abstractions, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Execution.Abstractions.13.0.2\lib\netstandard2.0\HotChocolate.Execution.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Fetching, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Fetching.13.0.2\lib\netstandard2.0\HotChocolate.Fetching.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Language, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Language.13.0.2\lib\netstandard2.0\HotChocolate.Language.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Language.SyntaxTree, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Language.SyntaxTree.13.0.2\lib\netstandard2.0\HotChocolate.Language.SyntaxTree.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Language.Utf8, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Language.Utf8.13.0.2\lib\netstandard2.0\HotChocolate.Language.Utf8.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Language.Visitors, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Language.Visitors.13.0.2\lib\netstandard2.0\HotChocolate.Language.Visitors.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Language.Web, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Language.Web.13.0.2\lib\netstandard2.0\HotChocolate.Language.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Types, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Types.13.0.2\lib\netstandard2.0\HotChocolate.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Types.CursorPagination, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Types.CursorPagination.13.0.2\lib\netstandard2.0\HotChocolate.Types.CursorPagination.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Types.Mutations, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Types.Mutations.13.0.2\lib\netstandard2.0\HotChocolate.Types.Mutations.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Types.OffsetPagination, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Types.OffsetPagination.13.0.2\lib\netstandard2.0\HotChocolate.Types.OffsetPagination.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Utilities, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Utilities.13.0.2\lib\netstandard2.0\HotChocolate.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Utilities.Introspection, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Utilities.Introspection.13.0.2\lib\netstandard2.0\HotChocolate.Utilities.Introspection.dll</HintPath>
+    </Reference>
+    <Reference Include="HotChocolate.Validation, Version=13.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HotChocolate.Validation.13.0.2\lib\netstandard2.0\HotChocolate.Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.4\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DiagnosticAdapter, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DiagnosticAdapter.3.1.4\lib\net461\Microsoft.Extensions.DiagnosticAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.ObjectPool.3.1.4\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.2.7\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -53,10 +131,48 @@
       <HintPath>..\packages\MSTest.TestFramework.2.2.7\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=1.2.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.7.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SqlClient, Version=4.6.1.5, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.8.5\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.4.7.0\lib\netstandard2.0\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -66,12 +182,15 @@
     <Compile Include="CustomerService.cs" />
     <Compile Include="DashboardChannelItem.cs" />
     <Compile Include="DashboardItem.cs" />
+    <Compile Include="DashboardOrderItem.cs" />
+    <Compile Include="DashboardProductItem.cs" />
     <Compile Include="DashboardProductsItem.cs" />
     <Compile Include="DashboardSaleChannelItem.cs" />
     <Compile Include="DashboardService.cs" />
     <Compile Include="DashboardSingleItem.cs" />
     <Compile Include="DashboardTotalSalesItem.cs" />
     <Compile Include="InventoryService.cs" />
+    <Compile Include="OrderChannelItem.cs" />
     <Compile Include="OrderService.cs" />
     <Compile Include="PaymentService.cs" />
     <Compile Include="ProductService.cs" />
@@ -82,6 +201,7 @@
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
@@ -92,6 +212,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.props'))" />
     <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.2.7\build\net45\MSTest.TestAdapter.targets')" />
+  <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
 </Project>

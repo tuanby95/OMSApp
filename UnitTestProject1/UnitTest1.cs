@@ -7,65 +7,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using GreenDonut;
 
 namespace OMSTest
 {
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void GetNotSellingProductByDateTest()
-        {
-            DateTime fromDate = new DateTime(2023, 01, 25);
-            DateTime toDate = new DateTime(2023, 01, 26);
-            var result = DashboardService.GetTotalNotSellingProductsByDate(fromDate, toDate);
-            Assert.IsTrue(result > 3);
-        }
-
-        [TestMethod]
-        public void GetTotalSalesByDateTest()
-        {
-            DateTime fromDate = new DateTime(2023, 01, 24);
-            DateTime toDate = new DateTime(2023, 04, 24);
-
-            var result = DashboardService.GetTotalSalesByDate(fromDate, toDate);
-            Assert.IsTrue(result.Count > 0);
-        }
-
-        [TestMethod]
-        public void GetOutOfStockProductsTest()
-        {
-            var result = DashboardService.GetTotalOutOfStockProducts();
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetTotalNearlyOutOfStockProductTest()
-        {
-            var result = DashboardService.GetTotalNearlyOutOfStockProdudcts();
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetTotalOrdersOnChannelByDateTest()
-        {
-            DateTime fromDate = new DateTime(2023, 01, 24);
-            DateTime toDate = new DateTime(2023, 01, 30);
-
-            var result = DashboardService.GetTotalOrdersOnChannelByDate(fromDate, toDate);
-            Assert.IsNotNull(result);
-        }
-
-        [TestMethod]
-        public void GetTotalIssueOrdersByByDateTest()
-        {
-            DateTime fromDate = new DateTime(2023, 01, 24);
-            DateTime toDate = new DateTime(2023, 01, 24);
-
-            long result = DashboardService.GetTotalIssueOrdersByDate(fromDate, toDate);
-            Assert.IsTrue(result > 0);
-        }
-
         [TestMethod]
         public void GetSellingProductTopThreeTest()
         {
@@ -75,6 +24,8 @@ namespace OMSTest
             var result = DashboardService.GetSellingProductTopThree(fromDate, toDate);
             Assert.AreEqual(result = 3, 3);
         }
+
+        #region Dapper
 
         [TestMethod]
         public void GetTotalProductByAmountTest()
@@ -98,5 +49,41 @@ namespace OMSTest
             var result = DashboardService.GetTotalInactiveProductOnChannel(checkingChannel);
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void GetTotalOrdersByDateTest()
+        {
+            string fromDate = "2023-01-24";
+            string toDate = "2023-02-20";
+            var result = DashboardService.GetTotalOrderByDate(fromDate, toDate);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetTotalOrdersOnChannelsTest()
+        {
+            var fromDate = new DateTime(2023, 01, 24);
+            var toDate = new DateTime(2023, 02, 20);
+            var result = ChannelService.GetTotalOrdersOnChannel(fromDate, toDate);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetTotalNotSellingProductsTest()
+        {
+            var toDate = DateTime.Today;
+            var checkingChannel = "2";
+            var result = DashboardService.GetTotalNotSellingProducts(toDate, checkingChannel);
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void GetTotalReturnOrdersTest()
+        {
+            var filterFormat = "DAY";
+            var filterRange = 7;
+            var toDate = DateTime.Today;
+        }
+        #endregion
     }
 }

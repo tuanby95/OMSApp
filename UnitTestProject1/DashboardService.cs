@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Collections;
 
 namespace UnitTestProject1
 {
@@ -22,18 +23,6 @@ namespace UnitTestProject1
         {
             var sql = SqlQueryHelper.GetTotalNotSellingProductsByDateQuery(fromDate, toDate);
             return GetTotalByConditionInternal(sql);
-        }
-
-        /// <summary>
-        /// Get total sales by date
-        /// </summary>
-        /// <param name="fromDate">Date begin</param>
-        /// <param name="toDate">Date end</param>
-        /// <returns>Return the total sales</returns>
-        internal static List<DashboardTotalSalesItem> GetTotalSalesByDate(DateTime fromDate, DateTime toDate)
-        {
-            var sql = SqlQueryHelper.GetTotalSalesByDateQuery(fromDate, toDate);
-            return GetTotalSalesListByConditionInternal(sql);
         }
 
         /// <summary>
@@ -154,41 +143,52 @@ namespace UnitTestProject1
 
         private static IEnumerable<DashboardProductsItem> GetTotalProductByAmountInternal(string sql)
         {
-            using(IDbConnection db = new SqlConnection(SqlHelper._connectionString))
-            {
-                var result = db.Query<DashboardProductsItem>(sql);
-                return result;
-            }
+            return SqlHelper.Query<DashboardProductsItem>(sql);
+
         }
 
-        internal static List<DashboardChannelItem> GetTotalChannelsByStatus()
+        internal static IEnumerable<DashboardChannelItem> GetTotalChannelsByStatus()
         {
             string sql = SqlQueryHelper.GetTotalChannelsByStatusQuery();
             return GetTotalChannelsByStatusInternal(sql);
         }
 
-        private static List<DashboardChannelItem> GetTotalChannelsByStatusInternal(string sql)
+        private static IEnumerable<DashboardChannelItem> GetTotalChannelsByStatusInternal(string sql)
         {
-            using(IDbConnection db = new SqlConnection(SqlHelper._connectionString))
-            {
-                var result = db.Query<DashboardChannelItem>(sql).ToList();
-                return result;
-            }
+            return SqlHelper.Query<DashboardChannelItem>(sql);
         }
 
-        internal static List<DashboardSingleItem> GetTotalInactiveProductOnChannel(string checkingChannel)
+        internal static IEnumerable<DashboardSingleItem> GetTotalInactiveProductOnChannel(string checkingChannel)
         {
             string sql = SqlQueryHelper.GetTotalInactiveProductOnChannel(checkingChannel);
             return GetTotalInactiveProductOnChannelInternal(sql);
         }
 
-        private static List<DashboardSingleItem> GetTotalInactiveProductOnChannelInternal(string sql)
+        private static IEnumerable<DashboardSingleItem> GetTotalInactiveProductOnChannelInternal(string sql)
         {
-            using(IDbConnection db = new SqlConnection(SqlHelper._connectionString))
-            {
-                var result = db.Query<DashboardSingleItem>(sql).ToList();
-                return result;
-            }
+            return SqlHelper.Query<DashboardSingleItem>(sql);
+        }
+
+        internal static IEnumerable<DashboardOrderItem> GetTotalOrderByDate(string fromDate, string toDate)
+        {
+            string sql = SqlQueryHelper.GetTotalOrdersByDateQuery(fromDate, toDate);
+            return GetTotalOrderByDate(sql);
+        }
+
+        private static IEnumerable<DashboardOrderItem> GetTotalOrderByDate(string sql)
+        {
+            return SqlHelper.Query<DashboardOrderItem>(sql);
+        }
+
+        internal static IEnumerable<DashboardProductItem> GetTotalNotSellingProducts(DateTime toDate, string checkingChannel)
+        {
+            string sql = SqlQueryHelper.GetTotalNotSellingProductsQuery(toDate, checkingChannel);
+            return GetTotalNotSellingProductsInternal(sql);
+        }
+
+        private static IEnumerable<DashboardProductItem> GetTotalNotSellingProductsInternal(string sql)
+        {
+            return SqlHelper.Query<DashboardProductItem>(sql);
         }
     }
 }
