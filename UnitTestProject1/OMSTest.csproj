@@ -142,8 +142,6 @@
     <Compile Include="OrderService.cs" />
     <Compile Include="PaymentService.cs" />
     <Compile Include="ProductService.cs" />
-    <Compile Include="ProductVariant.cs" />
-    <Compile Include="Size.cs" />
     <Compile Include="SqlHelper.cs" />
     <Compile Include="SqlQueryHelper.cs" />
     <Compile Include="UnitTest1.cs" />
