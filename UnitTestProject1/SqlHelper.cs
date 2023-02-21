@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
+using UnitTestProject1;
 
 namespace OMSTest
 {
@@ -61,6 +63,23 @@ namespace OMSTest
 
                 return reader;
             }
+        }
+
+        public static List<T> Query<T>(string sql)
+        {
+            using (IDbConnection conn = new SqlConnection(_connectionString))
+            {
+                return (List<T>)conn.Query<T>(sql);
+            }
+        }
+
+        internal static int Excecute(string sql)
+        {
+            using (IDbConnection conn = new SqlConnection(_connectionString))
+            {
+                return conn.Execute(sql);
+            }
+           
         }
     }
 }
