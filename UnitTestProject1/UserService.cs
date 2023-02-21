@@ -22,7 +22,7 @@ namespace UnitTestProject1
         internal static User GetUserInformation(int id)
         {
             
-            var reader = SqlHelper.ExecuteReader(SqlHelper._connectionString, SqlQueryHelper.GetUserInformationByIdQuery(id), CommandType.Text);
+            var reader = SqlHelper.ExecuteReader(SqlQueryHelper.GetUserInformationQuery(id), CommandType.Text);
             var result = new User();
             while (reader.Read())
             {
@@ -53,10 +53,29 @@ namespace UnitTestProject1
             }
         }
 
+        internal static User GetUserInformationDapper(int id)
+        {
+            using (var connection = new SqlConnection(SqlHelper._connectionString))
+            {
+                return connection.QuerySingle<User>(SqlQueryHelper.GetUserInformationQuery(id));
+            }
+        }
+
             return result;
         }
 
             return result;
+        }
+
+        internal static int UpdatePasswordDapper(User user, string oldPassword, string newPassword)
+        {
+            if (oldPassword == "" || oldPassword.Length > 16) { return 0; }
+
+            var sql = SqlQueryHelper.UpdatePasswordQuery(user, oldPassword, newPassword);
+
+            using (var conn = new SqlConnection(SqlHelper._connectionString)){
+                return conn.Execute(sql);
+            }
         }
     }
 }
